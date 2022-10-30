@@ -1,3 +1,5 @@
+package ting.leetcode.beginnerguide
+
 class RunningSumOf1DArray {
     fun runningSum(nums: IntArray): IntArray {
         val result = IntArray(nums.size)

@@ -1,4 +1,4 @@
-import kotlin.math.floor
+package ting.leetcode.beginnerguide
 
 class MiddleOfTheLinkedList {
     fun middleNode(head: ListNode?): ListNode? {

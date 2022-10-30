@@ -1,3 +1,5 @@
+package ting.leetcode.beginnerguide
+
 class NumberOfStepsToReduceANumberToZero {
     fun numberOfSteps(num: Int): Int {
         var result = num

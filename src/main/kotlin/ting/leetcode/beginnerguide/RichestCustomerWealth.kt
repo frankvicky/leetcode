@@ -1,3 +1,5 @@
+package ting.leetcode.beginnerguide
+
 class RichestCustomerWealth {
     fun maximumWealth(accounts: Array<IntArray>): Int {
         val intArray = accounts.map { array ->

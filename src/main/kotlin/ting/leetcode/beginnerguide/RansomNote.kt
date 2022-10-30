@@ -1,3 +1,5 @@
+package ting.leetcode.beginnerguide
+
 class RansomNote {
     fun canConstruct(ransomNote: String, magazine: String): Boolean {
         val ransomNoteList = ransomNote.toMutableList()
@@ -16,7 +18,7 @@ class RansomNoteWithMap {
         val letterCount = hashMapOf<Char, Int>()
         magazine.forEach {
             if (letterCount[it] == null) {
-                letterCount[it] = 1
+                letterCount[it] = 0
             } else {
                 letterCount[it] = letterCount[it]!! + 1
             }
