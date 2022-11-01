@@ -1,11 +1,12 @@
-import ting.leetcode.arrays101.CheckIfNAndItsDoubleExist
-import ting.leetcode.arrays101.DuplicateZeros
-import ting.leetcode.arrays101.RemoveElement
-import ting.leetcode.arrays101.ValidMountainArray
+import ting.leetcode.arrays101.*
 import ting.leetcode.beginnerguide.RansomNote
 
 fun main(args: Array<String>) {
-    val solution = ValidMountainArray()
-    println(solution.validMountainArray(intArrayOf(0,3,2,1)))
+    val solution = SortArrayByParity()
+    val numbers = intArrayOf(17,18,5,4,6,1)
+//    val numbers = listOf(17,18,5,4,6,1)
+    solution.sortArrayByParity(numbers)
+    println(numbers.contentToString())
+//    println(solution.replaceElements(intArrayOf(17,18,5,4,6,1)).contentToString())
 
 }
