@@ -35,37 +35,13 @@ class MoveZeros {
 
     fun moveZeroesWithFilter(nums: IntArray): Unit {
         nums.run {
-
             val numsList = filter { it != 0 }
             numsList.forEachIndexed { index, value ->
                 nums[index] = value
                 if (index == lastIndex - numsList.lastIndex || index == 0)
                     nums.fill(0, index + 1, nums.size)
             }
-
         }
-
     }
 
-    fun moveZeroesWithSort(nums: IntArray): Unit {
-        if (nums.isEmpty()) return
-        val numbersOfZero = nums.count { it == 0 }
-        if (numbersOfZero == 0) return
-
-        nums.sort()
-        val firstZeroIndex = nums.indexOf(0)
-        val lastZeroIndex =  nums.lastIndexOf(0)
-        var firstIndexAfterZero = lastZeroIndex + 1
-        val numberOfBiggerThanZeroElements = nums.size - firstIndexAfterZero
-        val lastIndexOfLastNonZeroElement = firstZeroIndex + numberOfBiggerThanZeroElements
-
-        for (i in firstZeroIndex until (lastIndexOfLastNonZeroElement)) {
-            nums[i] = nums[firstIndexAfterZero]
-            firstIndexAfterZero++
-        }
-
-        nums.fill(0,lastIndexOfLastNonZeroElement, nums.size)
-
-
-    }
 }

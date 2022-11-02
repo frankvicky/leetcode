@@ -3,18 +3,15 @@ package ting.leetcode.beginnerguide
 class RansomNote {
     fun canConstruct(ransomNote: String, magazine: String): Boolean {
         val ransomNoteList = ransomNote.toMutableList()
-        val magazineList = magazine.toMutableList()
-        magazineList.forEach {
+        magazine.forEach {
             ransomNoteList.remove(it)
             if (ransomNoteList.isEmpty())
                 return true
         }
         return false
     }
-}
 
-class RansomNoteWithMap {
-    fun canConstruct(ransomNote: String, magazine: String): Boolean {
+    fun canConstructWithMap(ransomNote: String, magazine: String): Boolean {
         val letterCount = hashMapOf<Char, Int>()
         magazine.forEach {
             if (letterCount[it] == null) {
@@ -34,5 +31,4 @@ class RansomNoteWithMap {
 
         return true
     }
-
 }
