@@ -1,7 +1,8 @@
 import ting.leetcode.arrayandstring.*
+import ting.leetcode.linkedlist.MyLinkedList
 
 fun main(args: Array<String>) {
-    val solution = ReverseWordsInAString()
+//    val solution = ReverseWordsInAString()
 //    val numbers = intArrayOf(1,1)
 //    val numbers = intArrayOf(1,7,3,6,5,6)
 //    val numbers = intArrayOf(9,8,7,6,5,4,3,2,1,0)
@@ -26,7 +27,46 @@ fun main(args: Array<String>) {
 //    println(test.distinct())
 //    println(test.contentToString())
 //    val test = "the sky is blue"
-    val test = "  hello world  "
-    val test2 = " 1   2 ".split(" ")
-    println(solution.reverseWords(test))
+//    val test = "  hello world  "
+//    val test2 = " 1   2 ".split(" ")
+//    println(solution.reverseWords(test))
+//    val myLinkedList = MyLinkedList()
+//    myLinkedList.addAtHead(7)
+//    myLinkedList.addAtTail(7)
+//    myLinkedList.addAtHead(9)
+//    myLinkedList.addAtTail(8)
+//    myLinkedList.addAtHead(6)
+//    myLinkedList.addAtHead(0)
+//    val node1 = myLinkedList.get(5)
+//    myLinkedList.addAtHead(0)
+//    val node2 = myLinkedList.get(2)
+//    val node3 = myLinkedList.get(5)
+//    myLinkedList.addAtTail(4)
+
+//    myLinkedList.addAtHead(4)
+//    myLinkedList.addAtIndex(5, 0)
+//    myLinkedList.addAtHead(6)
+//    val node2 = myLinkedList.get(1)
+//    myLinkedList.deleteAtIndex(1)
+//    val node3 = myLinkedList.get(1)
+
+    val myLinkedList = MyLinkedList()
+//    myLinkedList.addAtHead(1)
+//    myLinkedList.addAtTail(3)
+//    myLinkedList.addAtIndex(1, 2)
+//    val node1 = myLinkedList.get(1)
+//    myLinkedList.deleteAtIndex(0)
+//    val node2 = myLinkedList.get(0)
+    myLinkedList.addAtHead(1)
+    myLinkedList.addAtTail(3)
+    myLinkedList.addAtIndex(1, 2)
+    val node1 = myLinkedList.get(1)
+    myLinkedList.deleteAtIndex(1)
+    val node2 = myLinkedList.get(1)
+    val node3 = myLinkedList.get(3)
+    myLinkedList.deleteAtIndex(3)
+    myLinkedList.deleteAtIndex(0)
+    val node4 = myLinkedList.get(0)
+    myLinkedList.deleteAtIndex(0)
+    val node5 = myLinkedList.get(0)
 }
