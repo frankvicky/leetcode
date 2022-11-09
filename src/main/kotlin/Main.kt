@@ -1,5 +1,8 @@
 import ting.leetcode.arrayandstring.*
+import ting.leetcode.linkedlist.LinkedListCycleII
+import ting.leetcode.linkedlist.ListNode
 import ting.leetcode.linkedlist.MyLinkedList
+import ting.leetcode.linkedlist.RemoveNthNodeFromEndOfList
 
 fun main(args: Array<String>) {
 //    val solution = ReverseWordsInAString()
@@ -50,23 +53,27 @@ fun main(args: Array<String>) {
 //    myLinkedList.deleteAtIndex(1)
 //    val node3 = myLinkedList.get(1)
 
-    val myLinkedList = MyLinkedList()
-//    myLinkedList.addAtHead(1)
-//    myLinkedList.addAtTail(3)
-//    myLinkedList.addAtIndex(1, 2)
-//    val node1 = myLinkedList.get(1)
-//    myLinkedList.deleteAtIndex(0)
-//    val node2 = myLinkedList.get(0)
-    myLinkedList.addAtHead(1)
-    myLinkedList.addAtTail(3)
-    myLinkedList.addAtIndex(1, 2)
-    val node1 = myLinkedList.get(1)
-    myLinkedList.deleteAtIndex(1)
-    val node2 = myLinkedList.get(1)
-    val node3 = myLinkedList.get(3)
-    myLinkedList.deleteAtIndex(3)
-    myLinkedList.deleteAtIndex(0)
-    val node4 = myLinkedList.get(0)
-    myLinkedList.deleteAtIndex(0)
-    val node5 = myLinkedList.get(0)
+    val node0 = ListNode(1)
+    val node1 = ListNode(2)
+    val node2 = ListNode(3)
+    val node3 = ListNode(4)
+    val node4 = ListNode(5)
+//    val node5 = ListNode(6)
+//    val node6 = ListNode(-9)
+//    val node7 = ListNode(-5)
+//    val node8 = ListNode(-2)
+//    val node9 = ListNode(-5)
+    node0.next = node1
+    node1.next = node2
+    node2.next = node3
+    node3.next = node4
+//    node4.next = node5
+//    node5.next = node6
+//    node6.next = node7
+//    node7.next = node8
+//    node8.next = node9
+//    node9.next = node6
+    val solution = RemoveNthNodeFromEndOfList()
+    solution.removeNthFromEnd(node0, 2)
+
 }

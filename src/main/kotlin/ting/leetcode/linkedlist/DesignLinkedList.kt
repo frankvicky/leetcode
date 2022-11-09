@@ -8,16 +8,10 @@ class MyLinkedList() {
         var next: Node? = null
     }
 
-    fun get(index: Int): Int {
-        val currentNode = getNode(index)
-        return currentNode?.`val` ?: -1
-    }
+    fun get(index: Int): Int = getNode(index)?.`val` ?: -1
 
     fun addAtHead(`val`: Int) {
-        if (head == null) {
-            head = Node(`val`)
-            return
-        }
+        if (initHeadIfNull(`val`)) return
 
         this.head = Node(`val`).also {
             it.next = this.head
@@ -25,10 +19,7 @@ class MyLinkedList() {
     }
 
     fun addAtTail(`val`: Int) {
-        if (head == null) {
-            head = Node(`val`)
-            return
-        }
+        if (initHeadIfNull(`val`)) return
 
         var currentNode = head
         while (currentNode?.next != null) currentNode = currentNode.next!!
@@ -67,6 +58,12 @@ class MyLinkedList() {
             index--
         }
         return currentNode
+    }
+
+    private fun initHeadIfNull(`val`: Int): Boolean {
+        val isHeadNull = head == null
+        if (isHeadNull) head = Node(`val`)
+        return isHeadNull
     }
 
 }
