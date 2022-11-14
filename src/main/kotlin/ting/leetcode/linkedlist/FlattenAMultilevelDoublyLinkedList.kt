@@ -2,8 +2,8 @@ package ting.leetcode.linkedlist
 
 class FlattenAMultilevelDoublyLinkedList {
     private var forkNodes = mutableListOf<Node>()
-    var customHead = Node(0)
-    var newListPointer = customHead
+    private var customHead = Node(0)
+    private var newListPointer = customHead
     private var counter = 0
 
     fun flatten(root: Node?): Node? {
