@@ -4,9 +4,8 @@ import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Order
 
-internal class DesignHashMapTest {
+internal class MyHashMapTest {
     private lateinit var myHashMap: MyHashMap
 
     @BeforeEach
@@ -19,7 +18,6 @@ internal class DesignHashMapTest {
 
     @Test
     fun put() {
-
         assertEquals(myHashMap.get(1), 2)
         assertEquals(myHashMap.get(2), 3)
     }
