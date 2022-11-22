@@ -19,8 +19,14 @@ fun main(args: Array<String>) {
     println(b)
     println(c)
     println(d)
+
 }
 
 private fun Int.plus20(): Int {
     return this + 20
 }
+
+data class Test(
+    private val nonNullable: Int = 12,
+    private val nullable: Int? = null
+)

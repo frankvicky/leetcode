@@ -1,4 +1,4 @@
-package javating.leetcode.hashtable;
+package ting.java.leetcode.hashtable;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
