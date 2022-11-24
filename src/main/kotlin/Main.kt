@@ -20,6 +20,10 @@ fun main(args: Array<String>) {
     println(c)
     println(d)
 
+    val gg = ::compute
+    gg(10)
+    (::compute)(10)
+
 }
 
 private fun Int.plus20(): Int {
@@ -30,3 +34,8 @@ data class Test(
     private val nonNullable: Int = 12,
     private val nullable: Int? = null
 )
+
+fun compute(x: Int) = x + 10
+val hh = ::compute
+val jj = hh(10)
+val kk = fun(x: Int) = x + 10
