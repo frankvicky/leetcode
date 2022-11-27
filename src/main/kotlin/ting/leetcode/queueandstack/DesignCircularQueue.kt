@@ -4,23 +4,12 @@ import kotlin.math.abs
 
 class MyCircularQueue(k: Int) {
 
-    // TODO: Refactor this ugly shit 
-    private val data : MutableList<Int> = MutableList(k) { -1 }
+    private val data: MutableList<Int> = MutableList(k) { -1 }
     private var headIndex = -1
     private var tailIndex = -1
 
     fun enQueue(value: Int): Boolean {
-        if (isFull()) {
-            println("full")
-            return false
-        }
-        if (headIndex == -1 && tailIndex == -1) {
-            headIndex++
-            tailIndex++
-            data[tailIndex] = value
-            return true
-        }
-
+        if (isFull()) return false
         if (isEmpty()) {
             headIndex = 0
             tailIndex = 0
@@ -28,57 +17,42 @@ class MyCircularQueue(k: Int) {
             return true
         }
 
-
-        if (tailIndex + 1 > data.lastIndex)
-            tailIndex = 0
-        else
-            tailIndex++
-
+        tailIndex = indexPlusOne(tailIndex)
         data[tailIndex] = value
-
         return true
     }
 
     fun deQueue(): Boolean {
         if (isEmpty()) return false
-        if (headIndex != -1) {
-            data[headIndex] = -1
-        }
-
-        if (headIndex + 1 > data.lastIndex)
-            headIndex = 0
-        else
-            headIndex++
-
-
+        if (headIndex != -1) data[headIndex] = -1
+        headIndex = indexPlusOne(headIndex)
         return true
     }
 
-    fun Front(): Int {
-        if (headIndex == -1) return -1
-        return data[headIndex]
-    }
+    fun Front(): Int = if (headIndex == -1) -1 else data[headIndex]
 
-    fun Rear(): Int {
-        if (tailIndex == -1) return -1
-        return data[tailIndex]
-    }
+    fun Rear(): Int = if (tailIndex == -1) -1 else data[tailIndex]
 
-    fun isEmpty(): Boolean {
-        val case1 = (headIndex != -1 && tailIndex != -1) && (data[tailIndex] == -1)
-        val case2 = (abs(tailIndex - headIndex) == 1) && (data[headIndex] == -1)
-        val case3 = headIndex == -1 && tailIndex == -1
-
-        return case1 || case2 || case3
-    }
-
-    fun isFull(): Boolean {
-        var tailIndex = tailIndex
-        if (tailIndex + 1 > data.lastIndex) {
-            tailIndex = 0
-            return tailIndex == headIndex && data[tailIndex] != -1
+    fun isEmpty(): Boolean =
+        run {
+            val case1 = (abs(tailIndex - headIndex) == 1) && (data[headIndex] == -1)
+            val case2 = headIndex == -1 && tailIndex == -1
+            case1 || case2
         }
-        return tailIndex + 1 == headIndex && data[tailIndex] != -1
-    }
 
+
+    fun isFull(): Boolean =
+        with(tailIndex) {
+            var tailIndex = this
+            when (tailIndex) {
+                data.lastIndex -> {
+                    tailIndex = 0
+                    tailIndex == headIndex && data[tailIndex] != -1
+                }
+                else -> tailIndex + 1 == headIndex && data[tailIndex] != -1
+            }
+        }
+
+    private fun indexPlusOne(index: Int): Int =
+        index.run { if (this == data.lastIndex) 0 else this + 1 }
 }
