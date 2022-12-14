@@ -43,14 +43,8 @@ class MyCircularQueue(k: Int) {
 
     fun isFull(): Boolean =
         with(tailIndex) {
-            var tailIndex = this
-            when (tailIndex) {
-                data.lastIndex -> {
-                    tailIndex = 0
-                    tailIndex == headIndex && data[tailIndex] != -1
-                }
-                else -> tailIndex + 1 == headIndex && data[tailIndex] != -1
-            }
+            val tailIndex = (this + 1) % data.size
+            tailIndex == headIndex && data[tailIndex] != -1
         }
 
     private fun indexPlusOne(index: Int): Int =

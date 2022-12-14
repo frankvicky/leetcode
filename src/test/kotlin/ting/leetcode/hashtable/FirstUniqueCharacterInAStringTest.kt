@@ -17,7 +17,7 @@ internal class FirstUniqueCharacterInAStringTest {
     @Test
     fun firstUniqCharKotlin() {
         assertEquals(
-            firstUniqueCharacterInAString.firstUniqChar("leetcode"),
+            firstUniqueCharacterInAString.firstUniqChar("ting/leetcode"),
             0
         )
 

@@ -1,4 +1,4 @@
-package ting.java.leetcode.hashtable;
+package ting.leetcode.java.hashtable;
 
 import java.util.HashMap;
 import java.util.Map;

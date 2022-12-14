@@ -1,4 +1,4 @@
-package ting.java.leetcode.arrays101;
+package ting.leetcode.java.arrays101;
 
 import java.util.Arrays;
 

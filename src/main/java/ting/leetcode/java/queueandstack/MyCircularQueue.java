@@ -1,4 +1,4 @@
-package ting.java.leetcode.queueandstack;
+package ting.leetcode.java.queueandstack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,12 +54,8 @@ public class MyCircularQueue {
     }
 
     public boolean isFull() {
-        var tailIndex = this.tailIndex;
-        if (tailIndex == data.size() - 1) {
-            tailIndex = 0;
-            return tailIndex == headIndex && data.get(tailIndex) != -1;
-        }
-        return tailIndex + 1 == headIndex && data.get(tailIndex) != -1;
+        var tailIndex = (this.tailIndex + 1) % data.size();
+        return tailIndex == headIndex && data.get(tailIndex) != -1;
     }
 
     private int indexPlusOne(int index) {
