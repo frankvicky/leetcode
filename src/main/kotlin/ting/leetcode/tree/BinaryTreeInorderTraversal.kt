@@ -1,7 +1,7 @@
 package ting.leetcode.tree
 
 class BinaryTreeInorderTraversal {
-    fun preorderTraversal(root: TreeNode?): List<Int> {
+    fun inorderTraversal(root: TreeNode?): List<Int> {
         if (root == null) return emptyList()
 
         val result = mutableListOf<Int>()
@@ -22,4 +22,14 @@ class BinaryTreeInorderTraversal {
         }
         return result
     }
+
+    fun inorderTraversalRecursion(root: TreeNode?): List<Int> =
+        if (root == null)
+            emptyList()
+        else
+            mutableListOf<Int>().apply {
+                addAll(inorderTraversalRecursion(root.left))
+                add(root.`val`)
+                addAll(inorderTraversalRecursion(root.right))
+            }
 }

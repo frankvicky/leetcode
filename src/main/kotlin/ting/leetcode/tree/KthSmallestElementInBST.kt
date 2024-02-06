@@ -20,4 +20,18 @@ class KthSmallestElementInBST {
             get(k - 1)
         }
     }
+
+    fun kthSmallestRecursion(root: TreeNode?, k: Int): Int = recursion(root)[k - 1]
+
+    fun recursion(root: TreeNode?): List<Int> =
+        if (root == null)
+            emptyList()
+        else
+            mutableListOf<Int>().apply {
+                addAll(recursion(root.left))
+                add(root.`val`)
+                addAll(recursion(root.right))
+            }
+
+
 }

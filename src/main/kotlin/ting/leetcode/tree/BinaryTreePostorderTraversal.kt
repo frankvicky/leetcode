@@ -1,7 +1,7 @@
 package ting.leetcode.tree
 
 class BinaryTreePostorderTraversal {
-    fun preorderTraversal(root: TreeNode?): List<Int> {
+    fun postorderTraversal(root: TreeNode?): List<Int> {
         if (root == null) return emptyList()
         var temp = 0
 
@@ -31,4 +31,14 @@ class BinaryTreePostorderTraversal {
         }
         return result
     }
+
+    fun postorderTraversalRecursion(root: TreeNode?): List<Int> =
+        if (root == null)
+            emptyList()
+        else
+            buildList {
+                addAll(postorderTraversalRecursion(root.left))
+                addAll(postorderTraversalRecursion(root.right))
+                add(root.`val`)
+            }
 }

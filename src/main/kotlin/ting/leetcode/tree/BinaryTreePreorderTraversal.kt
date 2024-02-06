@@ -19,4 +19,15 @@ class BinaryTreePreorderTraversal {
 
         return result
     }
+
+    fun preorderTraversalRecursion(root: TreeNode?): List<Int> =
+        if (root == null)
+            emptyList()
+        else
+            buildList {
+                add(root.`val`)
+                addAll(preorderTraversalRecursion(root.left))
+                addAll(preorderTraversalRecursion(root.right))
+            }
+
 }

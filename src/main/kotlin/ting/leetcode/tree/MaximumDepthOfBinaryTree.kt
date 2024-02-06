@@ -1,5 +1,7 @@
 package ting.leetcode.tree
 
+import kotlin.math.max
+
 class MaximumDepthOfBinaryTree {
     fun maxDepth(root: TreeNode?): Int {
         if (root == null) return 0
@@ -19,4 +21,7 @@ class MaximumDepthOfBinaryTree {
         }
         return result.size
     }
+
+    fun maxDepthRecursion(root: TreeNode?): Int =
+        if (root == null) 0 else max(maxDepthRecursion(root.left), maxDepthRecursion(root.right)) + 1
 }

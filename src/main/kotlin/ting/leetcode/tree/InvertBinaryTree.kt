@@ -17,4 +17,14 @@ class InvertBinaryTree {
         }
         return root
     }
+
+    fun invertTreeRecursion(root: TreeNode?): TreeNode? {
+        if (root == null) return null
+
+        invertTreeRecursion(root.left)
+        invertTreeRecursion(root.right)
+
+        root.left = root.right.also { root.right = root.left }
+        return root
+    }
 }
