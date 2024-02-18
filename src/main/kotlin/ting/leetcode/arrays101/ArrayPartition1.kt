@@ -1,6 +1,4 @@
-package ting.leetcode.arrayandstring
-
-import kotlin.math.min
+package ting.leetcode.arrays101
 
 class ArrayPartition1 {
     fun arrayPairSum(nums: IntArray): Int {

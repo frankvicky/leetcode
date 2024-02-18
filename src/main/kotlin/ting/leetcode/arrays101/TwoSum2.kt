@@ -1,4 +1,4 @@
-package ting.leetcode.arrayandstring
+package ting.leetcode.arrays101
 
 class TwoSum2 {
     fun twoSum(numbers: IntArray, target: Int): IntArray {

@@ -1,4 +1,4 @@
-package ting.leetcode.arrayandstring
+package ting.leetcode.arrays101
 
 class RotateArray {
     fun rotate(nums: IntArray, k: Int): Unit {

@@ -1,6 +1,4 @@
-package ting.leetcode.arrayandstring
-
-import java.lang.Exception
+package ting.leetcode.arrays101
 
 class AddBinary {
     fun addBinary(a: String, b: String): String {

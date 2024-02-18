@@ -1,4 +1,4 @@
-package ting.leetcode.arrayandstring
+package ting.leetcode.arrays101
 
 class ReverseWordsInAString {
     fun reverseWords(s: String): String = s.split(" ").reversed().filter { it.isNotEmpty() }.joinToString(" ")

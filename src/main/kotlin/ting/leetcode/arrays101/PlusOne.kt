@@ -1,4 +1,4 @@
-package ting.leetcode.arrayandstring
+package ting.leetcode.arrays101
 
 class PlusOne {
     fun plusOne(digits: IntArray): IntArray {

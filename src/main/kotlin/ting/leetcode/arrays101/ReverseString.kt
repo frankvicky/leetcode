@@ -1,4 +1,4 @@
-package ting.leetcode.arrayandstring
+package ting.leetcode.arrays101
 
 class ReverseString {
     fun reverseString(s: CharArray): Unit {
