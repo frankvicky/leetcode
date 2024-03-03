@@ -20,4 +20,28 @@ public class SquaresOfASortedArray {
         }
         return results;
     }
+
+    public int[] sortedSquares2(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+        int[] ans = new int[nums.length];
+        int index = nums.length - 1;
+
+
+        while (left <= right) {
+            int rightPow = (int) Math.pow(nums[right], 2);
+            int leftPow = (int) Math.pow(nums[left], 2);
+
+            if (rightPow >= leftPow) {
+                ans[index] = rightPow;
+                right--;
+            } else {
+                ans[index] = leftPow;
+                left++;
+            }
+            index--;
+        }
+
+        return ans;
+    }
 }
