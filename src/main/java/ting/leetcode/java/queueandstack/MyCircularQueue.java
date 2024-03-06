@@ -1,64 +1,84 @@
 package ting.leetcode.java.queueandstack;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 
 public class MyCircularQueue {
-    private List<Integer> data;
-    private int headIndex = -1;
-    private int tailIndex = -1;
+    private final int[] queue;
+    private int head = -1;
+    private int tail = -1;
 
-
-    public MyCircularQueue(int k) {
-        this.data = new ArrayList<>(k) {{
-            for (int i = 0; i < k; i++) {
-                add(-1);
-            }
-        }};
+    public MyCircularQueue(int size) {
+        this.queue = new int[size];
+        Arrays.fill(queue, -1);
     }
 
     public boolean enQueue(int value) {
-        if (isFull()) return false;
+        if (isFull())
+            return false;
+
         if (isEmpty()) {
-            headIndex = 0;
-            tailIndex = 0;
-            data.set(tailIndex, value);
-            return true;
+            tail = 0;
+            head = 0;
         }
 
-        tailIndex = indexPlusOne(tailIndex);
-        data.set(tailIndex, value);
+
+        queue[tail++] = value;
+
+        if (tail >= queue.length) {
+            tail %= queue.length;
+        }
+
+
         return true;
     }
 
     public boolean deQueue() {
-        if (isEmpty()) return false;
-        if (headIndex != -1) data.set(headIndex, -1);
-        headIndex = indexPlusOne(headIndex);
+        if (isEmpty()) {
+            head = -1;
+            tail = -1;
+            return false;
+        }
+
+        queue[head++] = -1;
+
+        if (head >= queue.length) {
+            head %= queue.length;
+        }
+
         return true;
     }
 
     public int Front() {
-        return headIndex == -1 ? -1 : data.get(headIndex);
+        if (isEmpty())
+            return -1;
+
+        return queue[head];
     }
 
     public int Rear() {
-        return tailIndex == -1 ? -1 : data.get(tailIndex);
+        if (isEmpty()) {
+            return -1;
+        }
+
+        if (tail - 1 < 0) {
+            return queue[queue.length - 1];
+        }
+        return queue[tail - 1];
     }
 
     public boolean isEmpty() {
-        var case1 = Math.abs(tailIndex - headIndex) == 1 && data.get(headIndex) == -1;
-        var case2 = headIndex == -1 && tailIndex == -1;
-        return case1 || case2;
+        if (head == -1 && head == tail) {
+            return true;
+        }
+
+        return head == tail && queue[head] == -1;
     }
 
     public boolean isFull() {
-        var tailIndex = (this.tailIndex + 1) % data.size();
-        return tailIndex == headIndex && data.get(tailIndex) != -1;
-    }
+        if (isEmpty())
+            return false;
 
-    private int indexPlusOne(int index) {
-        return index == data.size() - 1 ? 0 :  index + 1;
+        return head == tail && queue[head] != -1;
     }
 }

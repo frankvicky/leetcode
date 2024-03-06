@@ -7,7 +7,7 @@ class MinimumLengthOfStringAfterDeletingSimilarEnds {
 
         while (left < right) {
             if (s[left] != s[right]) break
-            var streakChar = s[left]
+            val streakChar = s[left]
 
             while (s[left] == streakChar && left < right) {
                 ++left

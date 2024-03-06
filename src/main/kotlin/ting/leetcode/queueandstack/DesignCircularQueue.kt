@@ -3,50 +3,73 @@ package ting.leetcode.queueandstack
 import kotlin.math.abs
 
 class MyCircularQueue(k: Int) {
-
-    private val data: MutableList<Int> = MutableList(k) { -1 }
-    private var headIndex = -1
-    private var tailIndex = -1
+    private val queue: IntArray = IntArray(k) { -1 }
+    private var head = -1
+    private var tail = -1
 
     fun enQueue(value: Int): Boolean {
-        if (isFull()) return false
-        if (isEmpty()) {
-            headIndex = 0
-            tailIndex = 0
-            data[tailIndex] = value
-            return true
+        if (isFull()) {
+            return false
         }
 
-        tailIndex = indexPlusOne(tailIndex)
-        data[tailIndex] = value
+        if (isEmpty()) {
+            tail = 0
+            head = 0
+        }
+
+        queue[tail++] = value
+        if (tail >= queue.size) {
+            tail %= queue.size
+        }
+
         return true
     }
 
     fun deQueue(): Boolean {
-        if (isEmpty()) return false
-        if (headIndex != -1) data[headIndex] = -1
-        headIndex = indexPlusOne(headIndex)
+        if (isEmpty()) {
+            head = -1
+            tail = -1
+            return false
+        }
+
+        queue[head++] = -1
+
+        if (head >= queue.size) {
+            head %= queue.size
+        }
+
         return true
     }
 
-    fun Front(): Int = if (headIndex == -1) -1 else data[headIndex]
-
-    fun Rear(): Int = if (tailIndex == -1) -1 else data[tailIndex]
-
-    fun isEmpty(): Boolean =
-        run {
-            val case1 = (abs(tailIndex - headIndex) == 1) && (data[headIndex] == -1)
-            val case2 = headIndex == -1 && tailIndex == -1
-            case1 || case2
+    fun Front(): Int {
+        if (isEmpty()) {
+            return -1;
         }
 
+        return queue[head]
+    }
 
-    fun isFull(): Boolean =
-        with(tailIndex) {
-            val tailIndex = (this + 1) % data.size
-            tailIndex == headIndex && data[tailIndex] != -1
+    fun Rear(): Int {
+        if (isEmpty()) {
+            return -1
         }
 
-    private fun indexPlusOne(index: Int): Int =
-        index.run { if (this == data.lastIndex) 0 else this + 1 }
+        return if (tail - 1 < 0) queue[queue.lastIndex] else queue[tail - 1]
+    }
+
+    fun isEmpty(): Boolean {
+        if (head == -1 && head == tail) {
+            return true
+        }
+
+        return head == tail && queue[head] == -1
+    }
+
+    fun isFull(): Boolean {
+        if (isEmpty()) {
+            return false
+        }
+
+        return head == tail && queue[head] != -1
+    }
 }
