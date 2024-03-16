@@ -5,50 +5,36 @@ import java.util.Queue;
 
 class MyStack {
 
-    private final Queue<Integer> queue1;
+    private final Queue<Integer> main;
 
-    private final Queue<Integer> queue2;
+    private final Queue<Integer> cache;
 
     MyStack() {
-        queue1 = new LinkedList<>();
-        queue2 = new LinkedList<>();
+        main = new LinkedList<>();
+        cache = new LinkedList<>();
     }
 
     public void push(int x) {
-        if (queue1.isEmpty()) {
-            queue2.offer(x);
-        } else {
-            queue1.offer(x);
+        while (!main.isEmpty()) {
+            cache.offer(main.poll());
+        }
+        main.offer(x);
+
+        while (!cache.isEmpty()) {
+            main.offer(cache.poll());
         }
     }
 
     public int pop() {
-        int last = 0;
-        Queue<Integer> inUse = queue1.isEmpty() ? queue2 : queue1;
-        Queue<Integer> notInUse = queue1.isEmpty() ? queue1 : queue2;
-        while (!inUse.isEmpty()) {
-            last = inUse.poll();
-            if (inUse.peek() == null) {
-                break;
-            }
-            notInUse.offer(last);
-        }
-        return last;
+        return main.poll();
     }
 
     public int top() {
-        int last = 0;
-        Queue<Integer> inUse = queue1.isEmpty() ? queue2 : queue1;
-        Queue<Integer> notInUse = queue1.isEmpty() ? queue1 : queue2;
-        while (!inUse.isEmpty()) {
-            last = inUse.poll();
-            notInUse.offer(last);
-        }
-        return last;
+        return main.peek();
     }
 
     public boolean empty() {
-        return queue1.isEmpty() && queue2.isEmpty();
+        return main.isEmpty();
     }
 }
 

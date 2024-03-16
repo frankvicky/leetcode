@@ -1,6 +1,6 @@
 package leetcode.recursion
 
-import ting.leetcode.linkedlist.ListNode
+import leetcode.linkedlist.ListNode
 
 class MergeTwoSortedLists {
     fun mergeTwoLists(list1: ListNode?, list2: ListNode?): ListNode? {
