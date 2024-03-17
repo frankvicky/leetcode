@@ -1,4 +1,4 @@
-package kotlin.ting.leetcode.arrays101
+package leetcode.arrays101
 
 class MinimumLengthOfStringAfterDeletingSimilarEnds {
     fun minimumLength(s: String): Int {
