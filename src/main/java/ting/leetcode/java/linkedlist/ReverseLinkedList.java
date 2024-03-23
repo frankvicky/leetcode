@@ -11,4 +11,12 @@ public class ReverseLinkedList {
         current.next = null;
         return nextNode;
     }
+
+    // 另一種反轉法，結就較為簡單
+    public ListNode reverse(ListNode head, ListNode prev) {
+        if (head == null) return prev;
+        ListNode newHead = head.next;
+        head.next = prev;
+        return reverse(newHead, head);
+    }
 }
