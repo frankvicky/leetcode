@@ -37,8 +37,4 @@ public class ReorderList {
             p1 = p1.next;
         }
     }
-
-    private void reverse(ListNode node) {
-
-    }
 }
