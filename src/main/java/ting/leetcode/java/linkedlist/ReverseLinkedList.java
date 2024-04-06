@@ -6,10 +6,11 @@ public class ReverseLinkedList {
             return current;
         }
 
-        ListNode nextNode = reverseList(current.next);
+        // 透過遞迴找到最後一個節點，也就是反轉後的頭部節點
+        ListNode last = reverseList(current.next);
         current.next.next = current;
         current.next = null;
-        return nextNode;
+        return last;
     }
 
     // 另一種反轉法，結就較為簡單
@@ -18,5 +19,20 @@ public class ReverseLinkedList {
         ListNode newHead = head.next;
         head.next = prev;
         return reverse(newHead, head);
+    }
+
+    public ListNode reverseListByLoop(ListNode current) {
+        if (current == null) {
+            return null;
+        }
+
+        ListNode prev = null;
+        while (current != null) {
+            ListNode next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
     }
 }

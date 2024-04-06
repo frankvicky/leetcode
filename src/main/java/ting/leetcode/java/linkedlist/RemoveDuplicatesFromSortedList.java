@@ -14,7 +14,6 @@ public class RemoveDuplicatesFromSortedList {
             fast = fast.next;
         }
         slow.next = null;
-
         return head;
     }
 }
