@@ -1,22 +1,32 @@
 package ting.leetcode.java.sorting;
 
-public class HeapSort {
+class HeapSort {
     public void heapSort(int[] arr) {
         int heapSize = arr.length;
-        // 尋找起始點公式，代表著最後一個有子節點（可能是左子節點或左右子節點）的父節點（根節點）的索引。
+        // 尋找起始點公式，代表著最後一個「有子節點（可能是左子節點或左右子節點）的父節點」（根節點）的索引。
         int startPoint = arr.length / 2 - 1;
 
-
-        // 建立 maxHeap (重新排列 arr)
+        // 建立 maxHeap （迴圈結束後就確保所有子樹都是最 root node 最大，符合 maxHeap）
         for (int i = startPoint; i >= 0; i--) {
             heapify(arr, heapSize, i);
         }
 
-        // 主要排序，從最後一個 node 往頂部逐一維護每個子樹的 maxHeap 特性
+        // 主要排序，從最後一個子樹開始，把 node 跟整棵樹的 root node 交換
+        // 參數 'i' 其實就是代表當前 heap 的大小。
+        // 在每一次迴圈的開始，我們會將 'i' 設置爲堆的尺寸。
+        // 然後 swap(arr, 0, i) 將 root（索引爲0）和尾節點（索引爲 'i'）互換。
+        // 然後，將索引爲 'i' 的元素視爲“已排序”，並不再它再進行 heapify。
+        // 我們如何把 i 元素排除的呢？
+        // 就是將其直接當成 heapSize 傳入
+        // heapify 方法在比較時，會直接忽略大於 heapSize 的 node index
+        // 以此達成邏輯上的分割
         for (int i = heapSize - 1; i >= 0; i--) {
             swap(arr, 0, i);
-            heapify(arr, i, 0);;
+            heapify(arr, i, 0);
         }
+        // 簡言之，上述迴圈在做的事情就是，透過 maxHeap 的特性(root node 必為最大值)
+        // 把 root node 丟到陣列尾端，並將其排除在 heapify 作用範圍之外
+        // 不斷重複過程就可以取得升序排列的陣列
     }
 
     private void heapify(int[] arr, int heapSize, int rootIndex) {
