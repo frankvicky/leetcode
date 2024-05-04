@@ -1,47 +1,9 @@
 package ting.leetcode.java.slidingwindow;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MinimumWindowSubstring {
-    public static String minWindowBrutal(String s, String t) {
-        if (s.length() < t.length())
-            return "";
-
-        if (s.equals(t))
-            return t;
-
-        int minWindowSize = t.length();
-        Map<Character, Integer> charToCount = new HashMap<>();
-        for (char c : t.toCharArray()) {
-            charToCount.merge(c, 0, (v1, v2) -> --v1 == 0 ? null : v1);
-        }
-
-        char[] sArray = s.toCharArray();
-
-
-        int start = 0;
-        int end = 0;
-        int size = s.length();
-        for (int i = 0; i <= sArray.length - minWindowSize; i++) {
-            Map<Character, Integer> temp = new HashMap<>(charToCount);
-            for (int j = i; j < sArray.length; j++) {
-                char key = sArray[j];
-                temp.computeIfPresent(key, (character, count) -> --count == 0 ? null : count);
-                if (temp.isEmpty() && j - i < size) {
-                    start = i;
-                    end = j + 1;
-                    size = end - start;
-                    break;
-                }
-            }
-        }
-
-        return String.valueOf(Arrays.copyOfRange(sArray, start, end));
-
-    }
-
     public static String minWindow(String s, String t) {
         // 首先，我們檢查輸入是否有效。如果源字符串s的長度小於目標字符串t的長度，沒有合適的窗口可以包含t，因此我們返回一個空字符串
         if (s.length() < t.length())
@@ -62,7 +24,7 @@ public class MinimumWindowSubstring {
                 // 已匹配字母數量
                 matched = 0,
                 // 初始化最小窗口大小為無限大
-                minLen = Integer.MAX_VALUE,
+                minLength = Integer.MAX_VALUE,
                 // 最小窗口的開始位置
                 minStart = 0;
 
@@ -76,8 +38,8 @@ public class MinimumWindowSubstring {
             // 如果目前已經匹配到的字母達到目標字符串的長度，則嘗試收縮窗口
             while (matched == t.length()) {
                 // 如果目前窗口的長度小於至今找到的最小窗口，則更新最小窗口的信息，包括開始位置和長度
-                if (end - start < minLen) {
-                    minLen = end - start;
+                if (end - start < minLength) {
+                    minLength = end - start;
                     minStart = start;
                 }
 
@@ -90,7 +52,7 @@ public class MinimumWindowSubstring {
 
         // 如果最小窗口長度仍然是無限大，表示源字符串s中不存在包含目標字符串t的所有字符的窗口，故返回空字符串
         // 否則，我們使用Java的substring函數從源字符串s中截取出最小窗口區域作為答案返回
-        return minLen == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLen);
+        return minLength == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLength);
     }
 
 
@@ -154,30 +116,34 @@ public class MinimumWindowSubstring {
     }
 
     public String minWindow3(String s, String t) {
+        if (s.equals(t))
+            return t;
+
+        if (s.length() < t.length())
+            return "";
+
         HashMap<Character, Integer> need = new HashMap<>();
         HashMap<Character, Integer> window = new HashMap<>();
 
-        for (char c : t.toCharArray()) {
-            need.merge(c, 1, (v1, v2) -> ++v1);
+        for (int i = 0; i < t.length(); i++) {
+            char current = t.charAt(i);
+            need.put(current, need.getOrDefault(current, 0) + 1);
         }
 
-        int left = 0;
-        int right = 0;
-        int count = 0;
-        int start = 0;
-        int minLen = Integer.MAX_VALUE;
+        int left = 0, right = 0, count = 0, start = 0, minimumLength = Integer.MAX_VALUE;
+
         while (right < s.length()) {
             char in = s.charAt(right);
             right++;
 
-            window.merge(in, 1, (v1, v2) -> ++v1);
+            window.put(in, window.getOrDefault(in, 0) + 1);
             if (window.get(in).equals(need.get(in))) {
                 count++;
             }
 
             while (need.size() == count) {
-                if (right - left < minLen) {
-                    minLen = right - left;
+                if (right - left <= minimumLength) {
+                    minimumLength = right - left;
                     start = left;
                 }
 
@@ -191,12 +157,13 @@ public class MinimumWindowSubstring {
                 }
             }
         }
-        return minLen == Integer.MAX_VALUE ? "" : s.substring(start, start + minLen);
+
+        return minimumLength == Integer.MAX_VALUE ? "" : s.substring(start, start + minimumLength);
+
     }
 
 
     public static void main(String[] args) {
-        System.out.println(MinimumWindowSubstring.minWindowBrutal("ADOBECODEBANC", "ABC"));
 //        System.out.println(MinimumWindowSubstring.minWindow("ADOBECODEBANC", "ABC"));
         System.out.println(MinimumWindowSubstring.minWindow("cabwefgewcwaefgcf", "cae"));
     }

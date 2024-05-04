@@ -44,3 +44,52 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         return left;
     }
 }
+
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int[] ans = {-1, -1};
+        int leftBound = bs(nums, target, (v1, v2) -> v1 < v2);
+        if (leftBound > nums.length || nums[leftBound] != target)
+            return ans;
+
+        int rightBound = bs(nums, target, (v1, v2) -> v1 <= v2) - 1;
+        ans[0] = leftBound;
+        ans[1] = rightBound;
+        return ans;
+    }
+
+    private int bs(int[] nums, int target, BiPredicate<Integer, Integer> condition) {
+        int left = 0, right = nums.length;
+
+        while (left < right) {
+            int mid = (right - left) / 2 + left;
+            if (condition.test(nums[mid], target)) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+
+        return left;
+    }
+
+    private static int bs(int[] arr, int target) {
+        int left = 0, right = arr.length;
+
+        while (left < right) {
+            int mid = (right - left) / 2 + left;
+            if (arr[mid] <= target)
+                left = mid + 1;
+            else
+                right = mid ;
+
+        }
+
+        return left;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {2, 3, 5, 4, 6, 7, 9, 8};
+        System.out.println(bs(arr, 7));
+    }
+}

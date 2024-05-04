@@ -21,7 +21,7 @@ class HeapSort {
         // heapify 方法在比較時，會直接忽略大於 heapSize 的 node index
         // 以此達成邏輯上的分割
         for (int i = heapSize - 1; i >= 0; i--) {
-            swap(arr, 0, i);
+            swap(arr, 0, i); // 樹頂是最大值，丟到最後面，不再加入排序。
             heapify(arr, i, 0);
         }
         // 簡言之，上述迴圈在做的事情就是，透過 maxHeap 的特性(root node 必為最大值)

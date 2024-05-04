@@ -82,3 +82,42 @@ public class MyCircularQueue {
         return head == tail && queue[head] != -1;
     }
 }
+
+class CircularQueue {
+    private String[] elements;
+    private int head = 0;
+    private int tail = 0;
+    private int size = 0;
+    private int capacity;
+
+    public CircularQueue(int capacity) {
+        this.capacity = capacity;
+        elements = new String[capacity];
+    }
+
+    public boolean offer(String element) {
+        if (size == capacity) {
+            // The queue is full
+            return false;
+        }
+        elements[tail] = element;
+        tail = (tail + 1) % capacity;
+        size++;
+        return true;
+    }
+
+    public String take() {
+        if (size == 0) {
+            // The queue is empty
+            return null;
+        }
+        String result = elements[head];
+        head = (head + 1) % capacity;
+        size--;
+        return result;
+    }
+
+    public int size() {
+        return size;
+    }
+}

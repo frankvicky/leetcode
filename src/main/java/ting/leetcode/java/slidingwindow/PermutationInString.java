@@ -34,8 +34,4 @@ public class PermutationInString {
         }
         return false;
     }
-
-    public static void main(String[] args) {
-        new PermutationInString().checkInclusion("ab", "eidbaooo");
-    }
 }
