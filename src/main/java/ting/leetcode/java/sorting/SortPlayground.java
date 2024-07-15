@@ -3,6 +3,20 @@ package ting.leetcode.java.sorting;
 import java.util.Arrays;
 
 public class SortPlayground {
+    public static void bubbleSort(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            boolean sorted = true;
+            for (int j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    swap(arr, j, j + 1);
+                    sorted = false;
+                }
+            }
+            if (sorted)
+                break;
+        }
+    }
+
     public static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int pivotIndex = partition(arr, left, right);
@@ -15,8 +29,9 @@ public class SortPlayground {
         int pivotValue = arr[right];
         int slow = left - 1;
         for (int fast = left; fast < right; fast++) {
-            if (arr[fast] < pivotValue)
+            if (pivotValue > arr[fast]) {
                 swap(arr, ++slow, fast);
+            }
         }
         swap(arr, ++slow, right);
         return slow;
@@ -34,20 +49,23 @@ public class SortPlayground {
         }
 
         int pivotIndex = partition(arr, left, right);
-        if (pivotIndex == kth)
+        if (pivotIndex == kth) {
             return arr[pivotIndex];
-        else if (pivotIndex < kth)
+        } else if (pivotIndex < kth) {
             return quickSelect(arr, pivotIndex + 1, right, kth);
-        else
+        } else {
             return quickSelect(arr, left, pivotIndex - 1, kth);
+        }
     }
 
     public static void heapSort(int[] arr) {
         int heapSize = arr.length;
         int lastRootNodeIndex = (arr.length >> 1) - 1;
+
         for (int i = lastRootNodeIndex; i >= 0; i--) {
             heapify(arr, i, heapSize);
         }
+
         for (int i = heapSize - 1; i >= 0; i--) {
             swap(arr, 0, i);
             heapify(arr, 0, i);
@@ -87,18 +105,21 @@ public class SortPlayground {
         int originalArrayIndex = left;
 
         while (leftArrayIndex <= mid && rightArrayIndex <= right) {
-            if (arr[leftArrayIndex] < arr[rightArrayIndex])
+            if (arr[leftArrayIndex] < arr[rightArrayIndex]) {
                 cache[cacheIndex] = arr[leftArrayIndex++];
-            else
+            } else {
                 cache[cacheIndex] = arr[rightArrayIndex++];
+            }
             cacheIndex++;
         }
 
-        while (leftArrayIndex <= mid)
+        while (leftArrayIndex <= mid) {
             cache[cacheIndex++] = arr[leftArrayIndex++];
+        }
 
-        while (rightArrayIndex <= right)
+        while (rightArrayIndex <= right) {
             cache[cacheIndex++] = arr[rightArrayIndex++];
+        }
 
         cacheIndex = 0;
         while (originalArrayIndex <= right)
@@ -108,7 +129,7 @@ public class SortPlayground {
     public static int bs(int[] arr, int target) {
         int left = 0, right = arr.length - 1;
         while (left <= right) {
-            int mid = (right - left >> 1) + left;
+            int mid = ((right - left) >> 1) + left;
             if (arr[mid] == target)
                 return mid;
             else if (arr[mid] < target)
@@ -123,7 +144,7 @@ public class SortPlayground {
         int left = 0, right = arr.length;
         while (left < right) {
             int mid = ((right - left) >> 1) + left;
-            if (arr[mid] <= target)
+            if (arr[mid] < target)
                 left = mid + 1;
             else
                 right = mid;
@@ -140,14 +161,24 @@ public class SortPlayground {
         heapSort(arr2);
         int[] arr3 = {5, 17, 3, 9, 14, 8, 8, 8, 8, 2, 11, 6, 12};
         mergeSort(arr3, 0, arr.length - 1, new int[arr3.length]);
+        int[] arr4 = {5, 17, 3, 9, 14, 8, 8, 8, 8, 2, 11, 6, 12};
+        bubbleSort(arr4);
         Arrays.stream(arr).forEach(i -> System.err.print(i + " "));
+        System.err.print(" : Built-in");
         System.err.println();
         Arrays.stream(arr1).forEach(i -> System.err.print(i + " "));
+        System.err.print(" : QuickSort");
         System.err.println();
         Arrays.stream(arr2).forEach(i -> System.err.print(i + " "));
+        System.err.print(" : HeapSort");
         System.err.println();
         Arrays.stream(arr3).forEach(i -> System.err.print(i + " "));
+        System.err.print(" : MergeSort");
         System.err.println();
+        Arrays.stream(arr4).forEach(i -> System.err.print(i + " "));
+        System.err.print(" : BubbleSort");
+        System.err.println();
+        System.err.println("Quick Select");
         System.err.println(quickSelect(arr, 0, arr.length - 1, 0));
         System.err.println(quickSelect(arr, 0, arr.length - 1, 4));
         System.err.println(quickSelect(arr, 0, arr.length - 1, 6));
@@ -156,6 +187,7 @@ public class SortPlayground {
 
         Arrays.stream(arr).forEach(i -> System.err.print(i + " "));
         System.err.println();
+        System.err.println("Binary Search");
         System.err.println(bs(arr, 2));
         System.err.println(bs(arr, 6));
         System.err.println(bs(arr, 8));
@@ -164,6 +196,7 @@ public class SortPlayground {
 
         Arrays.stream(arr).forEach(i -> System.err.print(i + " "));
         System.err.println();
+        System.err.println("Binary Search Border");
         System.err.println(bsb(arr, 2));
         System.err.println(bsb(arr, 6));
         System.err.println(bsb(arr, 8));
