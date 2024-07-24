@@ -1,5 +1,7 @@
 package ting.leetcode.java.binarysearch;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.function.BiPredicate;
 
 public class FindFirstAndLastPositionOfElementInSortedArray {
@@ -88,8 +90,9 @@ class Solution {
         return left;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnknownHostException {
         int[] arr = {2, 3, 5, 4, 6, 7, 9, 8};
         System.out.println(bs(arr, 7));
+        System.err.println(InetAddress.getByName("illegal-hostname"));
     }
 }
