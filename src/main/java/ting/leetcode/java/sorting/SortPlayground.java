@@ -1,27 +1,31 @@
 package ting.leetcode.java.sorting;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class SortPlayground {
+    private static final Random random = new Random();
     public static void bubbleSort(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            boolean sorted = true;
-            for (int j = 0; j < arr.length - 1 - i; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    swap(arr, j, j + 1);
-                    sorted = false;
+        int n = arr.length;
+        while (n > 0) {
+            int lastSwapIndex = 0;
+            for (int i = 0; i < n - 1; i++) {
+                if (arr[i] > arr[i + 1]) {
+                    swap(arr, i, i + 1);
+                    lastSwapIndex = i + 1;
                 }
             }
-            if (sorted)
-                break;
+            n = lastSwapIndex;
         }
     }
 
     public static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
+            int randomPivotIndex = left + random.nextInt(right - left + 1);
+            swap(arr, left, randomPivotIndex);
             int pivotIndex = partition(arr, left, right);
-            quickSort(arr, left, pivotIndex - 1);
             quickSort(arr, pivotIndex + 1, right);
+            quickSort(arr, left, pivotIndex -1);
         }
     }
 
@@ -29,9 +33,8 @@ public class SortPlayground {
         int pivotValue = arr[right];
         int slow = left - 1;
         for (int fast = left; fast < right; fast++) {
-            if (pivotValue > arr[fast]) {
+            if (arr[fast] < pivotValue)
                 swap(arr, ++slow, fast);
-            }
         }
         swap(arr, ++slow, right);
         return slow;
@@ -47,21 +50,20 @@ public class SortPlayground {
         if (left > right) {
             return -1;
         }
-
+        int randomPivotIndex = left + random.nextInt(right - left + 1);
+        swap(arr, left, randomPivotIndex);
         int pivotIndex = partition(arr, left, right);
-        if (pivotIndex == kth) {
+        if (pivotIndex == kth)
             return arr[pivotIndex];
-        } else if (pivotIndex < kth) {
+        else if (pivotIndex < kth)
             return quickSelect(arr, pivotIndex + 1, right, kth);
-        } else {
+        else
             return quickSelect(arr, left, pivotIndex - 1, kth);
-        }
     }
 
     public static void heapSort(int[] arr) {
         int heapSize = arr.length;
         int lastRootNodeIndex = (arr.length >> 1) - 1;
-
         for (int i = lastRootNodeIndex; i >= 0; i--) {
             heapify(arr, i, heapSize);
         }
@@ -113,13 +115,11 @@ public class SortPlayground {
             cacheIndex++;
         }
 
-        while (leftArrayIndex <= mid) {
+        while (leftArrayIndex <= mid)
             cache[cacheIndex++] = arr[leftArrayIndex++];
-        }
 
-        while (rightArrayIndex <= right) {
+        while (rightArrayIndex <= right)
             cache[cacheIndex++] = arr[rightArrayIndex++];
-        }
 
         cacheIndex = 0;
         while (originalArrayIndex <= right)
@@ -130,12 +130,13 @@ public class SortPlayground {
         int left = 0, right = arr.length - 1;
         while (left <= right) {
             int mid = ((right - left) >> 1) + left;
-            if (arr[mid] == target)
+            if (arr[mid] == target) {
                 return mid;
-            else if (arr[mid] < target)
+            } else if (arr[mid] < target) {
                 left = mid + 1;
-            else
+            } else {
                 right = mid - 1;
+            }
         }
         return -1;
     }
@@ -185,7 +186,10 @@ public class SortPlayground {
         System.err.println(quickSelect(arr, 0, arr.length - 1, 8));
         System.err.println(quickSelect(arr, 0, arr.length - 1, 12));
 
-        Arrays.stream(arr).forEach(i -> System.err.print(i + " "));
+
+        int[] arr5 = {5, 17, 3, 9, 14, 8, 8, 8, 8, 2, 11, 6, 12};
+        Arrays.sort(arr5);
+        Arrays.stream(arr5).forEach(i -> System.err.print(i + " "));
         System.err.println();
         System.err.println("Binary Search");
         System.err.println(bs(arr, 2));
@@ -194,7 +198,7 @@ public class SortPlayground {
         System.err.println(bs(arr, 9));
         System.err.println(bs(arr, 17));
 
-        Arrays.stream(arr).forEach(i -> System.err.print(i + " "));
+        Arrays.stream(arr5).forEach(i -> System.err.print(i + " "));
         System.err.println();
         System.err.println("Binary Search Border");
         System.err.println(bsb(arr, 2));
