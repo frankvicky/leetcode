@@ -2,6 +2,7 @@ package ting.datastructure.impl;
 
 import java.util.NoSuchElementException;
 
+// 重點：索引檢查、size 維護、擴容（必要時縮容）、插入和刪除時如何搬移元素。
 public class DynamicArray<E> {
     private static final int DEFAULT_CAPACITY = 10;
 
