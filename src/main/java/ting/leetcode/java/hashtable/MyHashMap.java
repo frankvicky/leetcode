@@ -32,11 +32,21 @@ class MyHashMapWithNode {
     }
 
     public void put(int key, int value) {
-        remove(key);
         int hash = hash(key);
-        Node previousNode = buckets[hash];
-        Node node = new Node(key, value, previousNode); // like stack.push()
-        buckets[hash] = node;
+        Node node = buckets[hash];
+
+        // 如果鍵已存在，更新值
+        while (node != null) {
+            if (node.key == key) {
+                node.value = value;
+                return;
+            }
+            node = node.next;
+        }
+
+        // 插入新的節點
+        Node newNode = new Node(key, value, buckets[hash]);
+        buckets[hash] = newNode;
     }
 
 
