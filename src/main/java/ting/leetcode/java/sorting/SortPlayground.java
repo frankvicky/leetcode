@@ -8,6 +8,7 @@ public class SortPlayground {
     public static void bubbleSort(int[] arr) {
         int n = arr.length;
         while (n > 0) {
+            // lastSwapIndex 记录了最后一次元素交换的位置。因为在此之后的元素已经有序，下一轮排序可以不再考虑这些元素，从而提高算法效率。
             int lastSwapIndex = 0;
             for (int i = 0; i < n - 1; i++) {
                 if (arr[i] > arr[i + 1]) {
@@ -15,6 +16,8 @@ public class SortPlayground {
                     lastSwapIndex = i + 1;
                 }
             }
+            // 在内层循环结束后，将 n 更新为 lastSwapIndex。
+            // 这样做是因为在 lastSwapIndex 之后的元素已经是有序的，不需要再进行比较和交换。
             n = lastSwapIndex;
         }
     }
@@ -38,6 +41,30 @@ public class SortPlayground {
         }
         swap(arr, ++slow, right);
         return slow;
+    }
+
+    private static void threePivotQuickSort(int[] arr, int left, int right) {
+        if (left < right) {
+            int[] partitions = threePivotPartition(arr, left, right);
+            threePivotQuickSort(arr, left, partitions[1] - 1);
+            threePivotQuickSort(arr, partitions[0] + 1, right);
+        }
+    }
+
+    private static int[] threePivotPartition(int[] arr, int left, int right) {
+        int pivotValue = arr[left + random.nextInt(right - left + 1)];
+        int lessThan = left;
+        int greaterThan = right;
+        int i = left;
+
+        while (i <= greaterThan) {
+            if (arr[i] < pivotValue) {
+               swap(arr, i++, lessThan++);
+            } else if (arr[i] > pivotValue) {
+                swap(arr, i, greaterThan--);
+            } else i++;
+        }
+        return new int[] {lessThan, greaterThan};
     }
 
     private static void swap(int[] arr, int from, int to) {
@@ -164,6 +191,8 @@ public class SortPlayground {
         mergeSort(arr3, 0, arr.length - 1, new int[arr3.length]);
         int[] arr4 = {5, 17, 3, 9, 14, 8, 8, 8, 8, 2, 11, 6, 12};
         bubbleSort(arr4);
+        int[] arr6 = {5, 17, 3, 9, 14, 8, 8, 8, 8, 2, 11, 6, 12};
+        threePivotQuickSort(arr6, 0, arr.length - 1);
         Arrays.stream(arr).forEach(i -> System.err.print(i + " "));
         System.err.print(" : Built-in");
         System.err.println();
@@ -179,6 +208,9 @@ public class SortPlayground {
         Arrays.stream(arr4).forEach(i -> System.err.print(i + " "));
         System.err.print(" : BubbleSort");
         System.err.println();
+        Arrays.stream(arr6).forEach(i -> System.err.print(i + " "));
+        System.err.print(" : Three-pivot QuickSort");
+        System.err.println();
         System.err.println("Quick Select");
         System.err.println(quickSelect(arr, 0, arr.length - 1, 0));
         System.err.println(quickSelect(arr, 0, arr.length - 1, 4));
@@ -192,20 +224,20 @@ public class SortPlayground {
         Arrays.stream(arr5).forEach(i -> System.err.print(i + " "));
         System.err.println();
         System.err.println("Binary Search");
-        System.err.println(bs(arr, 2));
-        System.err.println(bs(arr, 6));
-        System.err.println(bs(arr, 8));
-        System.err.println(bs(arr, 9));
-        System.err.println(bs(arr, 17));
+        System.err.println(bs(arr5, 2));
+        System.err.println(bs(arr5, 6));
+        System.err.println(bs(arr5, 8));
+        System.err.println(bs(arr5, 9));
+        System.err.println(bs(arr5, 17));
 
         Arrays.stream(arr5).forEach(i -> System.err.print(i + " "));
         System.err.println();
         System.err.println("Binary Search Border");
-        System.err.println(bsb(arr, 2));
-        System.err.println(bsb(arr, 6));
-        System.err.println(bsb(arr, 8));
-        System.err.println(bsb(arr, 9));
-        System.err.println(bsb(arr, 17));
+        System.err.println(bsb(arr5, 2));
+        System.err.println(bsb(arr5, 6));
+        System.err.println(bsb(arr5, 8));
+        System.err.println(bsb(arr5, 9));
+        System.err.println(bsb(arr5, 17));
     }
 }
 
