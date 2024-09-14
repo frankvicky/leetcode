@@ -53,3 +53,46 @@ public class ThreewayQuickSort {
         }
     }
 }
+
+class QS {
+    private static final Random random = new Random();
+    public static void quickSort(int[] arr, int left, int right) {
+        if (left < right) {
+            int[] pivots = partition(arr, left, right);
+            quickSort(arr, left, pivots[0] - 1);
+            quickSort(arr, pivots[1] + 1, right);
+        }
+    }
+
+    public static int[] partition(int[] arr, int left, int right) {
+        int pivot = left + random.nextInt(right - left + 1);
+        int lessThan = left;
+        int greaterThan = right;
+        int pivotValue = arr[pivot];
+
+        int i = left;
+        while (i <= greaterThan) {
+            if (arr[i] < pivotValue)
+                swap(arr, i++, lessThan++);
+            else if (arr[i] > pivotValue)
+                swap(arr, i, greaterThan--);
+            else i++;
+        }
+
+        return new int[] {lessThan, greaterThan};
+    }
+
+    public static void swap(int[] arr, int from, int to) {
+        int temp = arr[from];
+        arr[from] = arr[to];
+        arr[to] = temp;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {5, 17, 8, 9, 14, 8, 3, 8, 6, 2, 11, 8, 12};
+        quickSort(nums, 0, nums.length - 1);
+        for (int num : nums) {
+            System.out.print(num + " ");
+        }
+    }
+}

@@ -81,7 +81,6 @@ class MyHashMapWithNode {
             }
             node = node.next;
         }
-
     }
 
     // 在 remove(int key) 方法中，它的目的是將鍵等於給定鍵的節點從鍵值對列表（用鍵的哈希決定的特定桶）中移除。
@@ -92,7 +91,7 @@ class MyHashMapWithNode {
     //如果完成了while迴圈（即遍歷了所有節點），則這個函數結束，並不執行任何操作。這是因為函數未找到鍵相匹配的節點來移除。
 
     private int hash(int key) {
-        return key % MOD;
+        return (key & 0x7FFFFFFF) % buckets.length;
     }
 }
 
