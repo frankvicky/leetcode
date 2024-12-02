@@ -1,17 +1,23 @@
 package ting.leetcode.java.sorting;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class QuickSort {
     public void quickSort(int[] arr, int low, int high) {
         if (low <= high) {
             // QuickSort 的核心，透過指定(或找到)一個 pivotIndex 做為要固定的支點和分治法的邊界
+
             int pivotIndex = partition(arr, low, high);
             quickSort(arr, low, pivotIndex - 1);
             quickSort(arr, pivotIndex + 1, high);
         }
     }
 
+    // partition 方法的用途就是將一開始 pivotIndex 的元素排列好
     private int partition(int[] arr, int low, int high) {
         // 選擇 array 中的 high 索引的值為 pivotValue（基准值）
+        int random = ThreadLocalRandom.current().nextInt(low, high + 1);
+        swap(arr, random, high);
         int pivotValue = arr[high];
         // slow 指針在最初位於序列的左邊界 low - 1，slow 負責追蹤最新的已經處理過並且比 pivot 小的元素的位置。
         int slow = low - 1;

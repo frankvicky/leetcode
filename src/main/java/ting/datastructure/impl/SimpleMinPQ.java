@@ -16,18 +16,18 @@ class SimpleMinPQ {
     }
 
     // Parent node index
-    int parent(int node) {
-        return (node - 1) / 2;
+    private int parent(int nodeIndex) {
+        return (nodeIndex - 1) / 2;
     }
 
     // Left child index
-    int left(int node) {
-        return 2 * node + 1;
+    private int left(int nodeIndex) {
+        return 2 * nodeIndex + 1;
     }
 
     // Right child index
-    int right(int node) {
-        return 2 * node + 2;
+    private int right(int nodeIndex) {
+        return 2 * nodeIndex + 2;
     }
 
     // Swap two elements in the array
@@ -43,9 +43,9 @@ class SimpleMinPQ {
     }
 
     // Insert an element, O(log N)
-    public void push(int x) {
+    public void push(int newNode) {
         // Place the new element at the end
-        heap[size] = x;
+        heap[size] = newNode;
         // Swim up to the correct position
         swim(size);
         size++;
@@ -53,29 +53,29 @@ class SimpleMinPQ {
 
     // Remove the top element, O(log N)
     public int pop() {
-        int res = heap[0];
+        int pop = heap[0];
         // Move the last element to the top
+        heap[0] = heap[size - 1];
         size--;
-        heap[0] = heap[size];
         // Sink down to the correct position
         sink(0);
-        return res;
+        return pop;
     }
 
     // Swim up operation, O(log N)
-    private void swim(int x) {
-        while (x > 0 && heap[parent(x)] > heap[x]) {
-            swap(parent(x), x);
-            x = parent(x);
+    private void swim(int nodeIndex) {
+        while (nodeIndex > 0 && heap[parent(nodeIndex)] > heap[nodeIndex]) {
+            swap(parent(nodeIndex), nodeIndex);
+            nodeIndex = parent(nodeIndex);
         }
     }
 
     // Sink down operation, O(log N)
-    private void sink(int x) {
+    private void sink(int nodeIndex) {
         while (true) {
-            int root = x;
-            int left = left(x);
-            int right = right(x);
+            int root = nodeIndex;
+            int left = left(nodeIndex);
+            int right = right(nodeIndex);
 
             if (left < size && heap[left] < heap[root]) {
                 root = left;
@@ -83,11 +83,32 @@ class SimpleMinPQ {
             if (right < size && heap[right] < heap[root]) {
                 root = right;
             }
-            if (root == x) {
+            if (root == nodeIndex) {
                 break;
             }
-            swap(x, root);
-            x = root;
+            swap(nodeIndex, root);
+            nodeIndex = root;
+        }
+    }
+
+    // Sink down operation, O(log N) - Recursive version
+    private void sinkRecursion(int nodeIndex) {
+        int root = nodeIndex;
+        int left = left(nodeIndex);
+        int right = right(nodeIndex);
+
+        // Find the smallest value among root, left, and right
+        if (left < size && heap[left] < heap[root]) {
+            root = left;
+        }
+        if (right < size && heap[right] < heap[root]) {
+            root = right;
+        }
+
+        // If the smallest value is not the current node, swap and recurse
+        if (root != nodeIndex) {
+            swap(nodeIndex, root);
+            sink(root); // Recurse on the affected subtree
         }
     }
 }
