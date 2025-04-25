@@ -4,40 +4,33 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class UniqueBinarySearchTreesII {
-    // 此方法是用來生成所有唯一的二叉搜索樹的主方法
     public List<TreeNode> generateTrees(int n) {
-        // 當森林中沒有樹時（也就是 n 為 0），則返回一個空的列表
-        if (n == 0) {
-            return new LinkedList<>();
-        }
-        // 呼叫構建功能以生成所有唯一的二元搜索樹
         return build(1, n);
     }
-    // 此方法是用來逐層構建所有唯一的二元搜尋樹
+
     private List<TreeNode> build(int low, int high) {
-        // 創建一個鏈接列表來儲存所有唯一的樹
-        LinkedList<TreeNode> answer = new LinkedList<>();
-        // 基本情況，如果低点大於高點，然後添加 null 到答案列表並返回
+        LinkedList<TreeNode> res = new LinkedList<>();
         if (low > high) {
-            answer.add(null);
-            return answer;
+            // 这里需要装一个 null 元素，这样才能让下面的两个内层 for 循环都能进入，正确地创建出叶子节点
+            // 举例来说吧，什么时候会进到这个 if 语句？当你创建叶子节点的时候，对吧。
+            // 那么如果你这里不加 null，直接返回空列表，那么下面的内层两个 for 循环都无法进入
+            // 你的那个叶子节点就没有创建出来，看到了吗？所以这里要加一个 null，确保下面能把叶子节点做出来
+            res.add(null);
+            return res;
         }
 
-        // 遍歷每一個節點，嘗試將其作為樹的根節點
         for (int i = low; i <= high; i++) {
-            // 以 i 為根節點，所有可能的左子樹組合
-            List<TreeNode> leftTree = build(low, i - 1);
-            // 以 i 為根節點，所有可能的右子樹組合
-            List<TreeNode> rightTree = build(i + 1, high);
-            // 然後遍歷所有的左右子樹組合，並加入回答列表
-            for (TreeNode left : leftTree) {
-                for (TreeNode right : rightTree) {
-                    answer.add(new TreeNode(i, left, right));
+            List<TreeNode> leftNodes = build(low, i - 1);
+            List<TreeNode> rightNodes = build(i + 1, high);
+            for (TreeNode leftNode : leftNodes) {
+                for (TreeNode rightNode : rightNodes) {
+                    TreeNode root = new TreeNode(i);
+                    root.left = leftNode;
+                    root.right = rightNode;
+                    res.add(root);
                 }
             }
         }
-        // 最後返回答案列表（包含所有唯一的二元搜索樹）
-        return answer;
+        return res;
     }
 }
-
