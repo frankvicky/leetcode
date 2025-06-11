@@ -9,10 +9,10 @@ public class TwoSum {
 
         for (int i = 0; i < nums.length; i++) {
             int element = nums[i];
-            int difference = target - element;
             if (differenceToIndex.containsKey(element)){
                 return new int[] {differenceToIndex.get(element), i};
             }
+            int difference = target - element;
             differenceToIndex.put(difference, i);
         }
         return result;
